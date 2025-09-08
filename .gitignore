@@ -47,3 +47,6 @@ notes/credentials.txt
 
 # Logs
 *.log
+
+# Vercel
+.vercel
