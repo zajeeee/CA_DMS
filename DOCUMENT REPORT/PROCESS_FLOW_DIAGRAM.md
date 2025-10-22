@@ -1,0 +1,203 @@
+# Document Management System - Process Flow Diagram
+
+## System Overview
+The Document Management System (DMS) is a Flask-based web application designed to manage document workflows across different departments. The system handles incoming documents, routing, processing, and outgoing document management.
+
+## User Roles and Access Levels
+
+### 1. Admin Role
+- **Access**: Full system access
+- **Responsibilities**: User management, system monitoring, document oversight
+- **Dashboard**: Comprehensive statistics and document tracking
+
+### 2. Receiving1 Role
+- **Access**: Initial document receiving and processing
+- **Responsibilities**: Document intake, initial processing, routing to appropriate departments
+- **Dashboard**: Document statistics, recent additions, folder management
+
+### 3. Receiving2 Role (Admin Receiving)
+- **Access**: Secondary receiving and email document processing
+- **Responsibilities**: Email document handling, document acceptance, RTS (Return to Sender) management
+- **Dashboard**: Received documents, email documents, processing statistics
+
+### 4. Docs Role
+- **Access**: Documentation management and specialized document types
+- **Responsibilities**: GSO documents, travel documents, leave applications, special permits
+- **Dashboard**: Document type statistics, folder management, chart visualization
+
+### 5. Releasing Role
+- **Access**: Outgoing document management
+- **Responsibilities**: Document release, outgoing document tracking
+- **Dashboard**: Release statistics, outgoing document management
+
+## Document Flow Process
+
+### Phase 1: Document Intake (Receiving1)
+```
+External Document → Receiving1 User → System Entry
+├── Document Upload
+├── Metadata Entry (Control #, Source, Particulars)
+├── File Storage (Database Blob)
+└── Initial Processing
+```
+
+**Key Features:**
+- Document upload with file validation
+- Control number assignment
+- Source and particulars documentation
+- Automatic timestamp recording
+- File preview and download capabilities
+
+### Phase 2: Document Routing and Processing
+```
+Receiving1 → Routing Decision
+├── Route to Receiving2 (Email/Admin Processing)
+├── Route to Docs (Specialized Documents)
+├── Route to Releasing (Outgoing Documents)
+└── Internal Processing
+```
+
+**Routing Options:**
+1. **Other Documents**: Routed to Receiving2 for further processing
+2. **Specialized Documents**: Routed to Docs role for specific handling
+3. **Outgoing Documents**: Routed to Releasing for external dispatch
+
+### Phase 3: Secondary Processing (Receiving2)
+```
+Receiving2 Processing
+├── Email Document Handling
+├── Document Acceptance
+├── RTS (Return to Sender) Management
+├── Attachment Processing
+└── Final Routing
+```
+
+**Key Features:**
+- Email document integration
+- Document acceptance workflow
+- RTS management system
+- Attachment handling
+- Document status tracking
+
+### Phase 4: Specialized Document Management (Docs)
+```
+Docs Role Processing
+├── GSO Documents (General Services Office)
+├── Travel Documents
+├── Application Leave Documents
+├── Special Permit Documents
+└── Folder Management System
+```
+
+**Document Types:**
+1. **GSO Documents**: Supplier information, office details, amounts
+2. **Travel Documents**: Traveler information, destinations, dates
+3. **Application Leave**: Employee leave applications, types, dates
+4. **Special Permits**: Applicant information, purposes, duration
+
+### Phase 5: Document Release (Releasing)
+```
+Releasing Process
+├── Outgoing Document Management
+├── Release Tracking
+├── Document Dispatch
+└── Release Statistics
+```
+
+## Database Architecture
+
+### Core Tables
+1. **users**: User authentication and role management
+2. **receiving1_documents**: Initial document intake
+3. **receiving2_documents**: Secondary processing
+4. **other_documents**: General document handling
+5. **outgoing_documents**: Document release management
+6. **accepted_documents**: Accepted document tracking
+
+### Specialized Document Tables
+1. **gso_documents**: GSO-specific documents
+2. **travel_documents**: Travel-related documents
+3. **application_leave_documents**: Leave applications
+4. **special_permit_documents**: Special permits
+5. **routing_transmittal_slips**: Document routing information
+
+### Folder Management Tables
+1. **document_folders**: General folder management
+2. **folder_files**: File storage within folders
+3. **docs_document_folders**: Docs-specific folders
+4. **docs_folder_files**: Docs-specific file storage
+5. **releasing_document_folders**: Releasing-specific folders
+6. **releasing_folder_files**: Releasing-specific file storage
+
+## System Features
+
+### Authentication & Security
+- Role-based access control
+- Password hashing with Werkzeug
+- Session management
+- User activity tracking (last_seen)
+
+### File Management
+- Binary file storage (LONGBLOB)
+- File preview capabilities
+- Download functionality
+- File type validation
+- Size limits (1GB max)
+
+### Dashboard Features
+- Real-time statistics
+- Document tracking
+- Recent activity monitoring
+- Interactive charts and graphs
+- Responsive design
+
+### Search and Filtering
+- Document search functionality
+- Folder-based organization
+- Date-based filtering
+- Control number lookup
+
+## Technical Architecture
+
+### Backend
+- **Framework**: Flask (Python)
+- **Database**: MySQL
+- **Authentication**: Werkzeug Security
+- **File Storage**: Database BLOB storage
+- **Session Management**: Flask sessions
+
+### Frontend
+- **Styling**: Custom CSS with modern design
+- **Charts**: Chart.js for data visualization
+- **Icons**: Emoji-based icon system
+- **Responsive**: Mobile-friendly design
+- **Animations**: CSS transitions and effects
+
+### Network Configuration
+- **Local IP Detection**: Automatic network configuration
+- **Port**: 5000 (configurable)
+- **Access**: Multi-IP support for network access
+- **Static Files**: Served from /static directory
+
+## Process Flow Summary
+
+1. **Document Entry**: Receiving1 users input documents into the system
+2. **Initial Processing**: Documents are categorized and metadata is added
+3. **Routing Decision**: Documents are routed to appropriate departments
+4. **Secondary Processing**: Receiving2 handles email documents and complex routing
+5. **Specialized Handling**: Docs role manages specific document types
+6. **Document Release**: Releasing role manages outgoing documents
+7. **Administrative Oversight**: Admin role monitors entire system
+
+## Key Benefits
+
+- **Centralized Management**: All documents in one system
+- **Role-Based Access**: Secure, role-specific functionality
+- **Audit Trail**: Complete document tracking and history
+- **Scalable Architecture**: Modular design for easy expansion
+- **User-Friendly Interface**: Intuitive dashboards and workflows
+- **Network Accessibility**: Multi-user access across network
+- **Data Integrity**: Relational database with foreign key constraints
+- **File Security**: Binary storage with access controls
+
+This system provides a comprehensive solution for document management across multiple departments, ensuring efficient workflow, proper tracking, and secure document handling.

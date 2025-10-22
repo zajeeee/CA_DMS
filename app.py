@@ -9,6 +9,7 @@ import platform
 
 app = Flask(__name__)
 app.secret_key = 'SUPERSECRETKEY!@#$%^&*()-=0987654321)((*&&&&&&&&&&&&&&&&&------------------))'  # Change this to a secure random value
+app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 1024  # 1 GB
 
 # Add max and min functions to Jinja2 environment
 app.jinja_env.globals.update(max=max, min=min)
